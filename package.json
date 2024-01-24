@@ -60,5 +60,10 @@
 		"ts-node": "^10.9.2",
 		"tsx": "^4.7.0",
 		"typescript": "^5.3.3"
+	},
+	"engines": {
+		"npm": "please use yarn",
+		"yarn": ">=1.22.19",
+		"node": ">=20.7.0"
 	}
 }
