@@ -11,9 +11,9 @@ export const apiHandler =
 	>(
 		handlerFunc: Controller<Params, ResponseData, RequestBody, Query>,
 	): Controller<Params, ResponseData, RequestBody, Query> =>
-	(request, response, next) => {
+	async (request, response, next) => {
 		try {
-			return handlerFunc(request, response, next);
+			return await Promise.resolve(handlerFunc(request, response, next));
 		} catch (error) {
 			if (error instanceof APIError) {
 				logger.error(error.message);

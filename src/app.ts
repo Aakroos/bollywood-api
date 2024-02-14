@@ -5,6 +5,7 @@ import { apiHandler } from "@/utils/api-handler";
 import cors from "cors";
 import { getOrigins } from "@/utils/get-origins";
 import cookieParser from "cookie-parser";
+import { healthCheckRouter } from "./routes";
 
 export const startServer = () => {
 	const app = express();
@@ -34,6 +35,8 @@ export const startServer = () => {
 			});
 		}),
 	);
+
+	app.use("/api/v1/health-check", healthCheckRouter);
 
 	app.listen(PORT, () => logger.info(`App is running on PORT: ${PORT}`));
 };
