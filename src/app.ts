@@ -5,9 +5,10 @@ import { apiHandler } from "@/utils/api-handler";
 import cors from "cors";
 import { getOrigins } from "@/utils/get-origins";
 import cookieParser from "cookie-parser";
-import { healthCheckRouter } from "./routes";
+import { healthCheckRouter } from "@/routes";
+import { connectToDB } from "@/config";
 
-export const startServer = () => {
+export const startServer = async () => {
 	const app = express();
 
 	const PORT = process.env["PORT"];
@@ -27,7 +28,7 @@ export const startServer = () => {
 
 	app.get(
 		"/",
-		apiHandler((req, res) => {
+		apiHandler((_, res) => {
 			return res.status(200).json({
 				success: true,
 				code: 200,
@@ -37,6 +38,8 @@ export const startServer = () => {
 	);
 
 	app.use("/api/v1/health-check", healthCheckRouter);
+
+	await connectToDB();
 
 	app.listen(PORT, () => logger.info(`App is running on PORT: ${PORT}`));
 };
